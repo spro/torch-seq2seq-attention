@@ -1,3 +1,6 @@
+-- Extends upon the GRU model from https://arxiv.org/abs/1409.1259 with an
+-- attention model, adding a third input (all encoder states) and calculating a
+-- weighted sum of those states
 
 function AttentionGRU(input_size, hidden_size, max_length)
     local input = nn.View(-1)()
@@ -6,8 +9,8 @@ function AttentionGRU(input_size, hidden_size, max_length)
     local inputs = {input, prev_h, encs}
 
     local encs_sum = nn.View(-1)(nn.CAddTable()(encs))
-    local attn_coef = nn.SoftMax()(nn.Linear(input_size + hidden_size * 2, max_length)(
-        nn.JoinTable(1)({input, prev_h, encs_sum})))
+    local full_context = nn.JoinTable(1)({input, prev_h, encs_sum})
+    local attn_coef = nn.SoftMax()(nn.Linear(input_size + hidden_size * 2, max_length)(full_context))
     local attn = nn.MixtureTable()({attn_coef, encs})
 
     function makeGate(i, h)
