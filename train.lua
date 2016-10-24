@@ -66,11 +66,11 @@ function feval(params_)
         params:copy(params_)
     end
     grad_params:zero()
-	encoder:zeroGradParameters()
+    encoder:zeroGradParameters()
 
     -- Inputs and targets
 
-	local sentence = makeSentence()
+    local sentence = makeSentence()
     local input_tokens = tokenize(sentence[1])
     local output_tokens = tokenize(sentence[2])
 
@@ -78,9 +78,9 @@ function feval(params_)
     local decoder_inputs = makeDecoderInputs(output_tokens)
     local decoder_targets = makeDecoderTargets(output_tokens)
 
-	-- Forward pass
+    -- Forward pass
 
-	local encoder_outputs = encoder:forward(encoder_inputs)
+    local encoder_outputs = encoder:forward(encoder_inputs)
     local last_index = encoder_outputs:size()[1]
     encoder_outputs = torch.cat(encoder_outputs, torch.zeros(opt.max_length - last_index, 1, opt.hidden_size), 1)
     
@@ -97,7 +97,7 @@ function feval(params_)
         loss = loss + clones.criterion[t]:forward(decoder_outputs[t], decoder_targets[t])
     end
 
-	-- Backward pass
+    -- Backward pass
 
     local d_ins = {}
     local d_hs = {}
@@ -115,9 +115,9 @@ function feval(params_)
     end
 
     -- Summed encoder gradients
-	encoder:backward(encoder_inputs, dencs[{{1, last_index}}])
+    encoder:backward(encoder_inputs, dencs[{{1, last_index}}])
 
-	return loss / #output_tokens, grad_params
+    return loss / #output_tokens, grad_params
 end
 
 losses = {}

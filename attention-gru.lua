@@ -10,12 +10,12 @@ function AttentionGRU(input_size, hidden_size, max_length)
         nn.JoinTable(1)({input, prev_h, encs_sum})))
     local attn = nn.MixtureTable()({attn_coef, encs})
 
-	function makeGate(i, h)
-		local i2h = nn.Linear(input_size, hidden_size)(i)
-		local h2h = nn.Linear(hidden_size, hidden_size)(h)
-		local a2h = nn.Linear(hidden_size, hidden_size)(attn)
-		return nn.CAddTable()({i2h, h2h, a2h})
-	end
+    function makeGate(i, h)
+        local i2h = nn.Linear(input_size, hidden_size)(i)
+        local h2h = nn.Linear(hidden_size, hidden_size)(h)
+        local a2h = nn.Linear(hidden_size, hidden_size)(attn)
+        return nn.CAddTable()({i2h, h2h, a2h})
+    end
 
     local z = nn.Sigmoid()(makeGate(input, prev_h))
     local r = nn.Sigmoid()(makeGate(input, prev_h))
