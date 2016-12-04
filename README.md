@@ -1,6 +1,6 @@
 # torch-seq2seq-attention-translate
 
-Uses a non-recurrent encoder with an attention based decoder to translate the synthetic language *Espançanese*:
+This is a slightly modified implementation of [Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473). It a feed-forward (not recurrent) encoder with a GRU based decoder with attention to translate the synthetic language *Espançanese*:
 
 ![](https://i.imgur.com/oEXlkQa.png)
 
