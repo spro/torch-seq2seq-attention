@@ -1,4 +1,4 @@
-# torch-seq2seq-attention-translate
+# torch-seq2seq-attention
 
 This is a slightly modified implementation of [Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473). It a feed-forward (not recurrent) encoder with a GRU based decoder with attention to translate the synthetic language *Espançanese*:
 
@@ -6,7 +6,7 @@ This is a slightly modified implementation of [Neural Machine Translation by Joi
 
 ## Model
 
-This model builds upon [torch-seq2seq-translate](https://github.com/spro/torch-seq2seq-translate). In that model, the recurrent encoder outputs a single vector at the end (which represents the entire sentence) and the decoder decodes from there.
+This model builds upon [torch-seq2seq](https://github.com/spro/torch-seq2seq). In that model, the recurrent encoder outputs a single vector at the end (which represents the entire sentence) and the decoder decodes from there.
 
 In this model the encoder does a single embedding transformation of input words to vectors; all vectors are then fed to the decoder. The decoder uses an attention mechanism to decide which of the context vectors to "focus on" at each time step (output word).
 
