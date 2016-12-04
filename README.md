@@ -8,7 +8,7 @@ Uses a non-recurrent encoder with an attention based decoder to translate the sy
 
 This model builds upon [torch-seq2seq-translate](https://github.com/spro/torch-seq2seq-translate). In that model, the recurrent encoder outputs a single vector at the end (which represents the entire sentence) and the decoder decodes from there.
 
-In this model the encoder outputs a vector at each time step (each word in the input sentence) and at the end the whole set of context vectors are fed to the decoder. The decoder then uses an attention mechanism to decide which of the context vectors to "focus on" at each time step (output word).
+In this model the encoder does a single embedding transformation of input words to vectors; all vectors are then fed to the decoder. The decoder uses an attention mechanism to decide which of the context vectors to "focus on" at each time step (output word).
 
 The attention mechanism builds upon the GRU (Gated Recurrent Unit) to create an AttentionGRU. The encoder context vectors are added as inputs at every step, and the current input and last hidden states are used to create attention weights. The attention weights are multiplied by encoder outputs and added to the final output state.
 
